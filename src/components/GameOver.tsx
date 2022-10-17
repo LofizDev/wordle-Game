@@ -12,7 +12,7 @@ export const GameOver: React.FC = () => {
                 </button>
                 <h6 className='share-title'>Share on Facebook</h6>
                 <FacebookShareButton
-                    url={"https://peing.net/ja/"}
+                    url={"https://wordle-game-xi.vercel.app/"}
                     hashtag={"#helpme"}
                 >
                     <button className='fb-btn btn'>Facebook</button>

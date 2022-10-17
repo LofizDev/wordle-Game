@@ -29,9 +29,8 @@ export const Congrats: React.FC = () => {
                 </button>
                 <h6 className='share-title'>Share on Facebook</h6>
                 <FacebookShareButton
-                    url={"https://peing.net/ja/"}
+                    url={"https://wordle-game-xi.vercel.app/"}
                     hashtag={"#wordle"}
-                    className="Demo__some-network__share-button"
                 >
                     <button className='fb-btn btn'>Facebook</button>
                 </FacebookShareButton>
