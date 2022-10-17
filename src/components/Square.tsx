@@ -10,23 +10,12 @@ interface SquareTypes {
 export const Square: React.FC<SquareTypes> = (props) => {
     const { value, circleIndex } = props
 
+    const [data, setData] = useState([])
+    const [merge, setMerge] = useState<any>(null)
     const row = useContext(WordleContext).currentRow
-    const position = useContext(WordleContext).position
+    const setIsLose = useContext(WordleContext).setIsLose
+    const setIsWin = useContext(WordleContext).setIsWin
     const guessWord = useContext(WordleContext).guessWord
-
-    const [wrong, setWrong] = useState<boolean>(false)
-    const [almost, setAlmost] = useState<boolean>(false)
-    const [correct, setCorrect] = useState<boolean>(false)
-
-    let indexOfLastWord = 4
-    let currentPosition =
-        position === 5
-            ? indexOfLastWord
-            : position > 5 && position % 5 === 0
-                ? indexOfLastWord
-                : (position % 5) - 1
-
-
 
     const animations = {
         focus: () => ({
@@ -41,31 +30,32 @@ export const Square: React.FC<SquareTypes> = (props) => {
                 duration: 0.2
             },
         }),
+
     }
 
+
     useEffect(() => {
-        if (guessWord[currentPosition] === value) {
-            setCorrect(true)
-        } else if (!correct && value !== "" && guessWord.includes(value)) {
-            setAlmost(true)
-        } else if (!correct && value !== "" && !guessWord.includes(value)) {
-            setWrong(true)
+        if (guessWord !== undefined) {
+            var newData = guessWord?.map((item: any) => { return { guess: item.guess, value: item.result, } })
+            // @ts-ignore
+            data.push(newData)
+            setMerge(data.flat(1))
+            const winner = newData?.every((item: any) => item.value === 'correct')
+            if (winner) {
+                setIsWin(true)
+            } else if (!winner && row >= 6) {
+                setIsLose(true)
+
+            }
         }
-
-        return () => {
-            setCorrect(false)
-            setAlmost(false)
-            setWrong(false)
-        }
-    }, [value])
+    }, [guessWord])
 
 
-    const status: any = Math.floor(circleIndex / 5) < row && (correct ? 'correct' : almost ? 'almost' : wrong ? 'wrong' : '')
 
 
     return (
         <motion.div animate={value ? 'focus' : 'unFocus'} variants={animations}>
-            <div id={status} className='circle'>{value}</div>
+            <div id={`${merge?.[circleIndex]?.value}`} className='circle'>{value}</div>
         </motion.div>
     )
 }
