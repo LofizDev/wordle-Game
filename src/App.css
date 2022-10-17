@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
 :root {
   --green:#7BB64F;
+  --greenLight:#6AC66A;
   --blue:#978BD2;
+  --blueLight:#5986DF;
   --gray:#C4C2CA;
   --black:#3F3759;
+  --brown:#69634D;
+  --orange-light:#F3F1EA;
+  --overlay:#AFACB0;
   --bg-primary:#052D24;
   --bg-secondary:#3A753F;
   --bg-button-primary:#dce1ed;
@@ -70,11 +75,14 @@ body {
   height: 65px;
   border-radius: 5px;
   display: flex;
+  text-transform: uppercase;
   align-items: center;
   justify-content: center;
-  background-color: #927FF2;
-  color: #3F3759;
-  border: 1px solid #927FF2;
+  background-color: var(--overlay);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  border: 1px solid transparent;
 }
 
 /* Keyboard */
@@ -104,13 +112,53 @@ body {
   transition: .2s ease;
 }
 
+
 /* Status */
 #correct {
-  background-color: green;
+  background-color: var(--green);
+  border-color: var(--green);
 }
 #almost {
-  background-color:red;
+  background-color:var(--blue);
 }
 #wrong {
-  background-color: #3F3759;
+  background-color: var(--gray);
+}
+
+/* CongratsBox */
+.congrats-box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  height: 300px;
+  text-align: center;
+  color: #978BD2;
+  font-weight: bold;
+  font-size: 23px;
+  padding-top: 20px;
+  width: 350px;
+  box-shadow:  0 0 0 500px rgb(255 255 255 / 50%), 0 0 40px rgb(0 0 0 / 40%);;
+}
+.btn {
+  background-color: var(--greenLight);
+  padding: 12px 22px;
+  color: white;
+  border: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.restart {
+  margin-top: 30px;
+  background-color: var(--greenLight);
+  color: white;
+}
+.share-title {
+  margin: 45px 0 15px;
+}
+.fb-btn {
+  background-color: var(--blueLight);
+  color: white;
 }

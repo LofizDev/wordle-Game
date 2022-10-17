@@ -7,7 +7,6 @@ export const Heading: React.FC = () => {
                 WOR<span className="text-active">D</span>LE
             </div>
             <div className="setting">
-                hey am setting
             </div>
         </div>
     )

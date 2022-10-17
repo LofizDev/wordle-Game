@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { Letter } from '../letter/Letter';
-import { WordleContext } from '../WordleContext';
+import { Letter } from './Letter';
+import { WordleContext } from '../context/WordleContext';
 export const Keyboard: React.FC = () => {
 
   const letters: string[] = ["q w e r t y u i o p", "a s d f g h j k l", "z x c v b n m"]

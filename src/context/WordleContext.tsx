@@ -7,37 +7,13 @@ interface iProps {
 }
 
 const WordleProvider = ({ children }: iProps) => {
+    const [isWin, setIsWin] = useState<boolean>(true)
     const [board, setBoard] = useState<string[]>([
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
+        '', '', '', '', '', '',
+        '', '', '', '', '', '',
+        '', '', '', '', '', '',
+        '', '', '', '', '', '',
+        '', '', '', '', '', '',
     ])
     const [position, setPosition] = useState<number>(0)
     const [guessWord, setGuessWord] = useState('cones')
@@ -60,6 +36,10 @@ const WordleProvider = ({ children }: iProps) => {
         setBoard(newBoard)
     }
 
+    const handleRestart = () => {
+        setIsWin(false)
+    }
+
 
     // // Correct word
     // useEffect(() => {
@@ -71,7 +51,7 @@ const WordleProvider = ({ children }: iProps) => {
 
 
     return (
-        <WordleContext.Provider value={{ board, setBoard, position, increasePosition, handleBack, currentRow, handleIncreaseRow, guessWord }}>
+        <WordleContext.Provider value={{ board, setBoard, position, increasePosition, handleBack, currentRow, handleIncreaseRow, guessWord, isWin, handleRestart }}>
             {children}
         </WordleContext.Provider>
     )

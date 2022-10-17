@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { WordleContext } from '../WordleContext'
+import { WordleContext } from '../context/WordleContext'
 
 interface SquareTypes {
     value: string,

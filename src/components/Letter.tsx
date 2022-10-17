@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 // @ts-ignore
-import { WordleContext } from '../WordleContext'
+import { WordleContext } from '../context/WordleContext'
 interface LetterTypes {
     value: string
 
@@ -18,7 +18,6 @@ export const Letter: React.FC<LetterTypes> = (props) => {
     const chooseLetter = () => {
         // Allow to next row
         if (row > currentRow) return
-
 
         if (position >= 30) return
         const newBoard = [...board]
