@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 // @ts-ignore
 import { WordleContext } from '../context/WordleContext'
 interface LetterTypes {
@@ -12,20 +12,31 @@ export const Letter: React.FC<LetterTypes> = (props) => {
     const setBoard = useContext(WordleContext).setBoard
     const currentRow = useContext(WordleContext).currentRow
     const incPos = useContext(WordleContext).increasePosition
+    const allowToTyping = useContext(WordleContext).isOpenWordModal
 
     let row = Math.floor(position / 5)
 
-    const chooseLetter = () => {
+    const chooseLetter = (e: any) => {
         // Allow to next row
+        if (allowToTyping) return
         if (row > currentRow) return
-
         if (position >= 30) return
+        if (e.keyCode < 65 || e.keyCode > 90 || e.keyCode == 13) return
+
         const newBoard = [...board]
-        newBoard[position] = value
+        const keyValue = e.key ? e.key : value
+        newBoard[position] = keyValue
         setBoard(newBoard)
         incPos()
     }
+
+    useEffect(() => {
+        window.addEventListener("keyup", chooseLetter);
+        return () => window.removeEventListener("keyup", chooseLetter);
+    }, [chooseLetter]);
+
     return (
+        //@ts-ignore
         <button className='key' onClick={chooseLetter}>{value}</button>
     )
 }

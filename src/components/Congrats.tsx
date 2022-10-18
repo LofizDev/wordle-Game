@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Fireworks } from '@fireworks-js/react'
-import { FacebookShareButton } from "react-share";
 import { WordleContext } from '../context/WordleContext';
 export const Congrats: React.FC = () => {
     const onRestart = useContext(WordleContext).handleRestart
@@ -27,13 +26,7 @@ export const Congrats: React.FC = () => {
                 <button onClick={onRestart} className='restart btn'>
                     restart
                 </button>
-                <h6 className='share-title'>Share on Facebook</h6>
-                <FacebookShareButton
-                    url={"https://wordle-game-xi.vercel.app/"}
-                    hashtag={"#wordle"}
-                >
-                    <button className='fb-btn btn'>Facebook</button>
-                </FacebookShareButton>
+
             </div>
 
         </>

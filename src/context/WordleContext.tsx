@@ -1,4 +1,5 @@
-import React, { useState, createContext, useEffect } from 'react'
+import React, { useState, createContext } from 'react'
+import { fetchGuessDaily, fetchGuessRandom, fetchGuessWord } from '../api'
 
 const WordleContext = createContext<any>(null)
 
@@ -14,7 +15,6 @@ interface GuesWordTypes {
 }
 
 const WordleProvider = ({ children }: iProps) => {
-    const API = 'https://wordle.votee.dev:8000/random'
 
     const [board, setBoard] = useState<string[]>([
         '', '', '', '', '', '',
@@ -23,15 +23,18 @@ const WordleProvider = ({ children }: iProps) => {
         '', '', '', '', '', '',
         '', '', '', '', '', '',
     ])
+
+    const [wordMode, setWordMode] = useState<string>()
+    const [isOpenWordModal, setIsOpenWordModal] = useState<boolean>(false)
     const [isWin, setIsWin] = useState<boolean>(false)
-    const [isLose, setIsLose] = useState<boolean>(false)
     const [position, setPosition] = useState<number>(0)
-    const [guessWord, setGuessWord] = useState<GuesWordTypes>()
+    const [isLose, setIsLose] = useState<boolean>(false)
     const [currentRow, setCurrentRow] = useState<number>(0)
+    const [guessWord, setGuessWord] = useState<GuesWordTypes>()
+
 
     const increasePosition = () => {
         setPosition(position + 1)
-
     }
 
     let wordSubmit: string = `${board[position - 5]}${board[position - 4]}${board[position - 3]}${board[position - 2]}${board[position - 1]}`
@@ -39,11 +42,20 @@ const WordleProvider = ({ children }: iProps) => {
     // Handle Submit
     const handleIncreaseRow = () => {
         setCurrentRow(currentRow + 1)
-
-        const url = `${API}?guess=${wordSubmit}&seed=12345`;
-        fetch(url).then(res => res.json())
-            .then(data => setGuessWord(data)
-            )
+        switch (localStorage.getItem('mode')) {
+            case 'Daily':
+                // @ts-ignore
+                fetchGuessDaily(wordSubmit).then(res => setGuessWord(res))
+                break;
+            case 'Random':
+                // @ts-ignore
+                fetchGuessRandom(wordSubmit).then(res => setGuessWord(res))
+            case 'Word':
+                // @ts-ignore
+                fetchGuessWord(wordMode, wordSubmit).then(res => setGuessWord(res))
+            default:
+                break;
+        }
     }
 
 
@@ -60,16 +72,15 @@ const WordleProvider = ({ children }: iProps) => {
     // Restart
     const handleRestart = () => {
         setIsWin(false)
-        setIsLose(!isLose)
+        setIsLose(false)
         window.location.reload()
     }
 
 
-
-
     return (
         <WordleContext.Provider value={{
-            board, setBoard, position, increasePosition, setIsLose, setIsWin,
+            board, setBoard, position, increasePosition, setIsLose, setIsWin, setWordMode,
+            isOpenWordModal, setIsOpenWordModal, wordMode,
             handleBack, currentRow, handleIncreaseRow, guessWord, isLose, isWin, handleRestart
         }}>
             {children}

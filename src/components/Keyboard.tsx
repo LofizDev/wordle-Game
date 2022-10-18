@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Letter } from './Letter';
 import { WordleContext } from '../context/WordleContext';
 export const Keyboard: React.FC = () => {
@@ -8,13 +8,23 @@ export const Keyboard: React.FC = () => {
   const position = useContext(WordleContext).position
   const onEnter = useContext(WordleContext).handleIncreaseRow
 
-  const handleBack = () => {
+  const handleBack = (e: any) => {
     onBack()
   }
 
-  const handleEnter = () => {
-    if (position % 5 === 0 && position !== 0) onEnter()
+  const handleEnter = (e: any) => {
+    if (e.key === 'Enter' && position % 5 === 0 && position !== 0) {
+      onEnter()
+    }
+    if (e.key === 'Backspace') {
+      return onBack()
+    }
   }
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleEnter);
+    return () => window.removeEventListener("keyup", handleEnter);
+  }, [handleEnter]);
 
   return <div className="keyboard">
     {letters.map((key: string, index: number) => {

@@ -48,6 +48,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: relative;
   margin-top: 8px;
 }
 .logo {
@@ -112,7 +113,6 @@ body {
   transition: .2s ease;
 }
 
-
 /* Status */
 #correct {
   background-color: var(--green);
@@ -131,14 +131,14 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
-  height: 300px;
+  height: 200px;
   text-align: center;
   color: #978BD2;
   font-weight: bold;
   font-size: 23px;
   padding-top: 20px;
   width: 350px;
-  box-shadow:  0 0 0 500px rgb(255 255 255 / 50%), 0 0 40px rgb(0 0 0 / 40%);;
+  box-shadow:  0 0 0 500px rgb(255 255 255 / 50%), 0 0 40px rgb(0 0 0 / 40%);
 }
 .btn {
   background-color: var(--greenLight);
@@ -176,5 +176,66 @@ body {
   font-family: 'Nanum Brush Script', cursive;
   color: red;
   font-size: 60px;
+
+}
+/* Setting */
+.setting {
+  display: inline-flex;
+}
+.setting button {
+  padding: 4px 14px;
+  background-color: var(--bg-button-primary);
+  cursor: pointer;
+  text-transform: capitalize;
+  margin: 0 2.5px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  height: 36px;
+  color: var(--text-primary);
+  font-size: 17px;
+}
+.mode-active {
+  background-color: var(--blue) !important;
+  color: #3F3759 !important;
+}
+.word-modal {
+  position: absolute;
+  right: 0;
+  top: 100px;
+  text-align: center;
+  color: #978BD2;
+  font-weight: bold;
+  font-size: 23px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding: 17px 20px;
+  border-radius: 14px;
+  width: 300px; 
+  align-items: center;
+}
+.word-modal input {
+  height: 35px;
+  padding-left: 17px;
+  width: 200px;
+  outline: none;
+  margin-top: -8px;
+}
+.word-modal h2 {
+  font-family: 'Nanum Brush Script', cursive;
+  line-height: 110%;
+}
+
+.word-modal button {
+  padding:8px 23px;
+  background-color: var(--greenLight);
+  letter-spacing: .6px;
+  border: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: white;
+  margin-top: 12px;
 
 }
