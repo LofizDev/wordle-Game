@@ -180,7 +180,8 @@ body {
 }
 /* Setting */
 .setting {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
 }
 .setting button {
   padding: 4px 14px;
@@ -237,5 +238,9 @@ body {
   border-radius: 6px;
   color: white;
   margin-top: 12px;
+}
 
+.round {
+  margin-left: 4px;
+  color: white;
 }

@@ -1,8 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Letter } from './Letter';
 import { WordleContext } from '../context/WordleContext';
+import { WORDS } from '../components/Constants'
 export const Keyboard: React.FC = () => {
 
+  const board = useContext(WordleContext).board
+  const row = useContext(WordleContext).currentRow
+  const [disabled, setDisabled] = useState<boolean>(false)
   const letters: string[] = ["q w e r t y u i o p", "a s d f g h j k l", "z x c v b n m"]
   const onBack = useContext(WordleContext).handleBack
   const position = useContext(WordleContext).position
@@ -12,19 +16,40 @@ export const Keyboard: React.FC = () => {
     onBack()
   }
 
-  const handleEnter = (e: any) => {
-    if (e.key === 'Enter' && position % 5 === 0 && position !== 0) {
-      onEnter()
+  let wordSubmit: string = `${board[position - 5]}${board[position - 4]}${board[position - 3]}${board[position - 2]}${board[position - 1]}`
+
+  const onKeyBoard = (e: any) => {
+    if (e.key === 'Backspace') onBack()
+    if (e.key === 'Enter' && position % 5 === 0 && position !== 0 && !disabled) {
+      if (WORDS.includes(wordSubmit)) {
+        onEnter()
+      } else if (!(WORDS.includes(wordSubmit))) {
+        alert('Invalid Word')
+      }
     }
-    if (e.key === 'Backspace') {
-      return onBack()
+  }
+
+  const handleEnter = () => {
+    if (WORDS.includes(wordSubmit)) {
+      if (position % 5 === 0 && position !== 0 && !disabled) onEnter()
+    } else if (!(WORDS.includes(wordSubmit))) {
+      alert('Invalid Word')
     }
   }
 
   useEffect(() => {
-    window.addEventListener("keyup", handleEnter);
-    return () => window.removeEventListener("keyup", handleEnter);
-  }, [handleEnter]);
+    if (row == 1 && board[5] == '' || row == 2 && board[10] == '' || row == 3 && board[15] == '' || row == 4 && board[20] == '' || row == 5 && board[25] == '') {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  },)
+
+
+  useEffect(() => {
+    window.addEventListener("keyup", onKeyBoard);
+    return () => window.removeEventListener("keyup", onKeyBoard);
+  }, [onKeyBoard]);
 
   return <div className="keyboard">
     {letters.map((key: string, index: number) => {
@@ -38,6 +63,5 @@ export const Keyboard: React.FC = () => {
         </div>
       )
     })}
-
   </div>;
 };

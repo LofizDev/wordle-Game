@@ -5,9 +5,7 @@ import { WordleProvider } from './context/WordleContext';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <React.StrictMode>
-    <WordleProvider>
-      <App />
-    </WordleProvider>
-  </React.StrictMode>
+  <WordleProvider>
+    <App />
+  </WordleProvider>
 );

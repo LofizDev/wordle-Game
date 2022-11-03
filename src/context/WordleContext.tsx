@@ -25,12 +25,14 @@ const WordleProvider = ({ children }: iProps) => {
     ])
 
     const [wordMode, setWordMode] = useState<string>()
-    const [isOpenWordModal, setIsOpenWordModal] = useState<boolean>(false)
+    const [round, setRound] = useState<any>(localStorage.getItem('round') || 1)
     const [isWin, setIsWin] = useState<boolean>(false)
     const [position, setPosition] = useState<number>(0)
     const [isLose, setIsLose] = useState<boolean>(false)
     const [currentRow, setCurrentRow] = useState<number>(0)
     const [guessWord, setGuessWord] = useState<GuesWordTypes>()
+
+    const [isOpenWordModal, setIsOpenWordModal] = useState<boolean>(false)
 
 
     const increasePosition = () => {
@@ -49,7 +51,8 @@ const WordleProvider = ({ children }: iProps) => {
                 break;
             case 'Random':
                 // @ts-ignore
-                fetchGuessRandom(wordSubmit).then(res => setGuessWord(res))
+                fetchGuessRandom(wordSubmit, round).then(res => setGuessWord(res))
+                break
             case 'Word':
                 // @ts-ignore
                 fetchGuessWord(wordMode, wordSubmit).then(res => setGuessWord(res))
@@ -80,7 +83,7 @@ const WordleProvider = ({ children }: iProps) => {
     return (
         <WordleContext.Provider value={{
             board, setBoard, position, increasePosition, setIsLose, setIsWin, setWordMode,
-            isOpenWordModal, setIsOpenWordModal, wordMode,
+            isOpenWordModal, setIsOpenWordModal, wordMode, round, setRound, wordSubmit,
             handleBack, currentRow, handleIncreaseRow, guessWord, isLose, isWin, handleRestart
         }}>
             {children}

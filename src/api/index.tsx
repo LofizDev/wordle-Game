@@ -10,8 +10,8 @@ export const fetchGuessDaily = async (params: queryTypes) => {
     return res;
 };
 
-export const fetchGuessRandom = async (params: queryTypes) => {
-    const res = await api.get(`random?guess=${params}&seed=12345`);
+export const fetchGuessRandom = async (word: string, round: number) => {
+    const res = await api.get(`random?guess=${word}&seed=${round}`);
     return res;
 };
 
@@ -19,3 +19,6 @@ export const fetchGuessWord = async (word: string, guess: string) => {
     const res = await api.get(`word/${word}?guess=${guess}`);
     return res;
 }
+
+
+

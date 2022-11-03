@@ -30,13 +30,12 @@ export const Square: React.FC<SquareTypes> = (props) => {
                 duration: 0.2
             },
         }),
-
     }
 
 
     useEffect(() => {
         if (guessWord !== undefined) {
-            var newData = guessWord?.map((item: any) => { return { guess: item.guess, value: item.result, } })
+            var newData = guessWord?.map((item: any) => { return { guess: item.guess, value: item.result } })
             // @ts-ignore
             data.push(newData)
             setMerge(data.flat(1))
@@ -45,10 +44,10 @@ export const Square: React.FC<SquareTypes> = (props) => {
                 setIsWin(true)
             } else if (!winner && row >= 6) {
                 setIsLose(true)
-
             }
         }
     }, [guessWord])
+
 
 
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { WordleContext } from '../context/WordleContext'
 
 export const Heading: React.FC = () => {
+    const round = useContext(WordleContext).round
     const setWordMode = useContext(WordleContext).setWordMode
     const [mode, setMode] = useState<string[]>(['Daily', 'Random', 'Word'])
     const [currentMode, setCurentMode] = useState(localStorage.getItem('mode'))
@@ -20,6 +21,7 @@ export const Heading: React.FC = () => {
     // Word Mode
     useEffect(() => {
         currentMode === 'Word' && setIsOpenWordModal(true)
+        localStorage.getItem('round') === null && localStorage.setItem('round', '1')
     }, [currentMode])
 
 
@@ -28,9 +30,14 @@ export const Heading: React.FC = () => {
         if (wordMode.length === 5) {
             localStorage.setItem('word', wordMode)
             setIsOpenWordModal(false)
+        } else {
+            alert('The length of word must be 5!!')
         }
     }
 
+    useEffect(() => {
+        localStorage.getItem('mode') === null && localStorage.setItem('mode', 'Daily')
+    }, [])
 
     return (
         <div className='heading-wrapper'>
@@ -44,6 +51,7 @@ export const Heading: React.FC = () => {
                         {item}
                     </button>
                 ))}
+                {currentMode === 'Random' && (<p className='round'>Round: {round} </p>)}
             </div>
             {isOpenWordModal && (
                 <div className='word-modal'>
@@ -53,6 +61,7 @@ export const Heading: React.FC = () => {
                     <button onClick={handleSubmit}>Submit</button>
                 </div>
             )}
+
         </div>
     )
 }

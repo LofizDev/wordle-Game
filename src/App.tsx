@@ -7,7 +7,6 @@ import { Keyboard } from './components/Keyboard';
 import { WordleContext } from './context/WordleContext';
 import { GameOver } from './components/GameOver';
 
-
 function App() {
   const isWin = useContext(WordleContext).isWin
   const isLose = useContext(WordleContext).isLose
