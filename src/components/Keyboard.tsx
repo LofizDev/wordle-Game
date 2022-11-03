@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Letter } from './Letter';
 import { WordleContext } from '../context/WordleContext';
-import { WORDS } from '../components/Constants'
+import { WORDS } from './Constants'
 export const Keyboard: React.FC = () => {
 
   const board = useContext(WordleContext).board
